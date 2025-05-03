@@ -56,10 +56,10 @@
             }
         });
 
-        // Set a fallback timeout to hide loader after 2 seconds
+        // Set a fallback timeout to hide loader after 7 seconds
         const loaderTimeout = setTimeout(() => {
             document.getElementById('loader').style.display = 'none';
-        }, 5000);
+        }, 7000);
 
         window.onload = function() {
             clearTimeout(loaderTimeout);
@@ -197,7 +197,7 @@
         <div id="modalOverlay" class="modal-backdrop fade" style="display: none;"></div>
         <div id="loader" class="loader-wrapper" style="display: none;"><span class="loader"><span
                     class="loader-inner"></span></span></div> <audio id="music" loop="loop" autoplay="autoplay">
-            <source src="music/instrumental2.mp3">
+            <source src="music/instrumental.mp3">
         </audio>
         <div id="workspace-container" class="position-fixed h-100 w-100" style="overflow: hidden;">
             <div id="panZoom" class="position-fixed h-100 w-100"
@@ -1941,7 +1941,7 @@
                     <div class="text-center py-4 px-4">
                         <div>
                             <div class="mx-auto">
-                                <img src="image/Wedding-AV.png" width="210" height="210" alt="Wedding Icon"
+                                <img src="image/Wedding-AV.webp" width="210" height="210" alt="Wedding Icon"
                                     style="border-radius: 50%; border: 2px solid #e5e5e5;" />
                                 <div style="margin-top: 10px; text-align: center;"></div>
                             </div>
