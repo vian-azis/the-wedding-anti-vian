@@ -792,7 +792,12 @@ var openInvitation = function openInvitation(event) {
 
   // start event gesture
   window.addEventListener(events[deviceType].down, eventDown, false);
+  jumpSlide(5); 
   swipeUp();
+  setTimeout(function () {
+    jumpSlide(0); 
+    swipeUp();
+  }, 100);
 };
 
 // buka undangan
