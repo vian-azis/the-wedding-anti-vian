@@ -2,23 +2,23 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="color-scheme" content="light only">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="google" content="notranslate">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="color-scheme" content="light only" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="google" content="notranslate" />
     <title>Daftar Nama Wedding - Anti & Vian</title>
-    <meta name="title" content="Daftar Nama Wedding - Anti & Vian">
-    <meta name="description" content="Save the date for the wedding of Vian & Anti - 22 June 2025.">
-    <meta itemprop="image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp">
-    <link rel="icon" type="image/webp" href="https://vian-azis.github.io/the-wedding-anti-vian/image/Logo-AV.webp">
+    <meta name="title" content="Daftar Nama Wedding - Anti & Vian" />
+    <meta name="description" content="Save the date for the wedding of Vian & Anti - 22 June 2025." />
+    <meta itemprop="image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp" />
+    <link rel="icon" type="image/webp" href="https://vian-azis.github.io/the-wedding-anti-vian/image/Logo-AV.webp" />
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vian-azis.github.io/the-wedding-anti-vian/list-nama.html">
-    <meta property="og:title" content="Daftar Nama Wedding - Anti & Vian">
-    <meta property="og:description" content="Save the date for the wedding of Anti & Vian - 22 June 2025.">
-    <meta property="og:image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vian-azis.github.io/the-wedding-anti-vian/list-nama.html" />
+    <meta property="og:title" content="Daftar Nama Wedding - Anti & Vian" />
+    <meta property="og:description" content="Save the date for the wedding of Anti & Vian - 22 June 2025." />
+    <meta property="og:image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp" />
     <style>
         /* Reset */
         * {
@@ -165,10 +165,8 @@
 </head>
 
 <body>
-
     <h1>Daftar Undangan Pernikahan</h1>
-    <input type="text" id="searchInput" placeholder="Cari nama tamu..." autocomplete="off"
-        aria-label="Cari nama tamu" />
+    <input type="text" id="searchInput" placeholder="Cari nama tamu..." autocomplete="off" aria-label="Cari nama tamu" />
 
     <div id="container"></div>
 
@@ -182,10 +180,12 @@
             "Ifa", "Milda", "Bima", "Salsa", "Mas Zulfan", "Reyca", "Buyung", "Winda"
         ];
 
+        // Fungsi ubah teks ke Title Case (Huruf Kapital tiap kata)
         function toTitleCase(str) {
             return str
                 .toLowerCase()
                 .split(' ')
+                .filter(w => w.length > 0)
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ');
         }
@@ -208,15 +208,10 @@
                 toTitleCase(name).toLowerCase().includes(filter.toLowerCase())
             );
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:#888; font-style:italic;">Tidak ada tamu dengan nama tersebut.</p>`;
-                return;
-            }
-
-            filtered.forEach(name => {
-                const cleanName = name.trim();
-                const displayName = toTitleCase(cleanName);
-                const encodedName = encodeURIComponent(cleanName);
+            if (filtered.length === 0 && filter.trim() !== '') {
+                // Buat undangan dari input pencarian
+                const displayName = toTitleCase(filter.trim());
+                const encodedName = encodeURIComponent(displayName);
 
                 const message = `
 *Kepada Yth.*
@@ -244,7 +239,7 @@ Terima kasih atas perhatian dan kehadirannya.
 *Anti & Vian*
 
 ---
-        `.trim();
+                `.trim();
 
                 const wrapper = document.createElement('div');
                 wrapper.className = 'invitation';
@@ -281,7 +276,6 @@ Terima kasih atas perhatian dan kehadirannya.
                     });
                 });
 
-                // Bisa juga menyalin saat tekan Enter saat focus (aksesibilitas)
                 wrapper.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -290,17 +284,98 @@ Terima kasih atas perhatian dan kehadirannya.
                 });
 
                 container.appendChild(wrapper);
-            });
+
+            } else if (filtered.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:#888; font-style:italic;">Tidak ada tamu dengan nama tersebut.</p>`;
+            } else {
+                filtered.forEach(name => {
+                    const cleanName = name.trim();
+                    const displayName = toTitleCase(cleanName);
+                    const encodedName = encodeURIComponent(displayName);
+
+                    const message = `
+*Kepada Yth.*
+Bapak/Ibu/Saudara/i *${displayName}*
+
+---
+
+Dengan hormat,
+Kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir
+dalam acara pernikahan kami:
+
+*Anti & Vian*
+
+Untuk informasi lengkap mengenai waktu dan tempat acara,
+silakan kunjungi undangan digital kami melalui tautan berikut:
+
+https://vian-azis.github.io/the-wedding-anti-vian/?guest=${encodedName}
+
+Merupakan kehormatan dan kebahagiaan bagi kami
+jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.
+
+Terima kasih atas perhatian dan kehadirannya.
+
+*Hormat kami,*
+*Anti & Vian*
+
+---
+                    `.trim();
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'invitation';
+                    wrapper.setAttribute('tabindex', '0');
+                    wrapper.setAttribute('role', 'button');
+                    wrapper.setAttribute('aria-label', `Salin undangan untuk ${displayName}`);
+
+                    wrapper.innerHTML = `
+          <h3>Kepada Yth.</h3>
+          <p>Bapak/Ibu/Saudara/i <strong>${displayName}</strong></p>
+          <hr>
+          <p>Dengan hormat,<br>
+          Kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dalam acara pernikahan kami:</p>
+
+          <p><strong>Anti & Vian</strong></p>
+
+          <p>Untuk informasi lengkap mengenai waktu dan tempat acara, silakan kunjungi undangan digital kami melalui tautan berikut:</p>
+          
+          <p><a href="https://vian-azis.github.io/the-wedding-anti-vian/?guest=${encodedName}" target="_blank" rel="noopener noreferrer">
+          https://vian-azis.github.io/the-wedding-anti-vian/?guest=${encodedName}</a></p>
+
+          <p>Merupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.</p>
+
+          <p>Terima kasih atas perhatian dan kehadirannya.</p>
+
+          <p>Hormat kami,<br><strong>Anti & Vian</strong></p>
+        `;
+
+                    wrapper.addEventListener('click', () => {
+                        navigator.clipboard.writeText(message).then(() => {
+                            showCopyPopup();
+                        }).catch(() => {
+                            alert('Gagal menyalin teks. Silakan coba manual.');
+                        });
+                    });
+
+                    wrapper.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            wrapper.click();
+                        }
+                    });
+
+                    container.appendChild(wrapper);
+                });
+            }
         }
 
-        document.getElementById('searchInput').addEventListener('input', e => {
-            renderInvitations(e.target.value.trim());
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', () => {
+            renderInvitations(searchInput.value);
         });
 
-        // Render awal semua undangan
-        renderInvitations();
+        // Render awal, tanpa filter
+        renderInvitations('');
     </script>
-
 </body>
 
 </html>
