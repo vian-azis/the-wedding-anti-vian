@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="color-scheme" content="light only">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="google" content="notranslate">
+    <title>Daftar Nama Wedding - Anti & Vian</title>
+    <meta name="title" content="Daftar Nama Wedding - Anti & Vian">
+    <meta name="description" content="Save the date for the wedding of Vian & Anti - 22 June 2025.">
+    <meta itemprop="image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp">
+    <link rel="icon" type="image/webp" href="https://vian-azis.github.io/the-wedding-anti-vian/image/Logo-AV.webp">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vian-azis.github.io/the-wedding-anti-vian/list-nama.html">
+    <meta property="og:title" content="Daftar Nama Wedding - Anti & Vian">
+    <meta property="og:description" content="Save the date for the wedding of Anti & Vian - 22 June 2025.">
+    <meta property="og:image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp">
+    <style>
+        /* Reset */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #2c3e50;
+            margin: 0;
+            padding: 30px 15px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: #e74c3c;
+            text-align: center;
+            user-select: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            max-width: 420px;
+            padding: 14px 18px;
+            border-radius: 30px;
+            border: 1.5px solid #bdc3c7;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            margin-bottom: 25px;
+            outline-offset: 2px;
+        }
+
+        #searchInput:focus {
+            border-color: #e74c3c;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.3);
+            outline: none;
+        }
+
+        #container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .invitation {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, transform 0.25s ease;
+            position: relative;
+            user-select: none;
+        }
+
+        .invitation:hover {
+            box-shadow: 0 15px 25px rgba(231, 76, 60, 0.25);
+            transform: translateY(-5px);
+            background: #fff7f7;
+        }
+
+        .invitation h3 {
+            margin-top: 0;
+            font-weight: 700;
+            color: #c0392b;
+            font-size: 1.3rem;
+            letter-spacing: 0.02em;
+        }
+
+        .invitation p {
+            line-height: 1.55;
+            font-size: 1rem;
+            color: #34495e;
+            margin-bottom: 1em;
+        }
+
+        .invitation hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 10px 0 20px;
+        }
+
+        .invitation a {
+            color: #e74c3c;
+            text-decoration: none;
+            word-break: break-word;
+            font-weight: 600;
+        }
+
+        .invitation a:hover {
+            text-decoration: underline;
+        }
+
+        /* Popup "Tersalin" */
+        .copied-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #27ae60;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 9999;
+            user-select: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .copied-popup.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            #searchInput {
+                max-width: 100%;
+            }
+
+            #container {
+                max-width: 100%;
+            }
+
+            .invitation {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Daftar Undangan Pernikahan</h1>
+    <input type="text" id="searchInput" placeholder="Cari nama tamu..." autocomplete="off"
+        aria-label="Cari nama tamu" />
+
+    <div id="container"></div>
+
+    <div id="copyPopup" class="copied-popup">Tersalin!</div>
+
+    <script>
+        const guestListRaw = [
+            "salma", "mbak navik", "jalal", "djorgi", "widia lestari", "avivi", "ayu", "sulis", "cherly", "wanda",
+            "diyas", "elok", "putri", "silvi", "anis", "sefia", "nanda", "yanti", "yanu", "hasan", "rafli", "riski",
+            "sihan", "theara", "indah", "oliv", "ilham", "selina", "hana", "sekar", "marinda", "roid", "rara",
+            "ifa", "milda", "bima", "salsa", "mas zulfan", "reyca", "buyung", "mbak ita", "mbak nova", "mbak lapi",
+            "mbak tia", "mbak yosi", "mbak veby", "frisha", "mbak erika", "mbak wilda", "mbak rinda",
+            "ifa (mbak koyim)", "winda"
+        ];
+
+        function toTitleCase(str) {
+            return str
+                .toLowerCase()
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+
+        const container = document.getElementById('container');
+        const copyPopup = document.getElementById('copyPopup');
+        let popupTimeout = null;
+
+        function showCopyPopup() {
+            clearTimeout(popupTimeout);
+            copyPopup.classList.add('show');
+            popupTimeout = setTimeout(() => {
+                copyPopup.classList.remove('show');
+            }, 1800);
+        }
+
+        function renderInvitations(filter = '') {
+            container.innerHTML = '';
+            const filtered = guestListRaw.filter(name =>
+                toTitleCase(name).toLowerCase().includes(filter.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:#888; font-style:italic;">Tidak ada tamu dengan nama tersebut.</p>`;
+                return;
+            }
+
+            filtered.forEach(name => {
+                const cleanName = name.trim();
+                const displayName = toTitleCase(cleanName);
+                const encodedName = encodeURIComponent(cleanName);
+
+                const message = `
+*Kepada Yth.*
+Bapak/Ibu/Saudara/i *${displayName}*
+
+---
+
+Dengan hormat,
+Kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir
+dalam acara pernikahan kami:
+
+*Anti & Vian*
+
+Untuk informasi lengkap mengenai waktu dan tempat acara,
+silakan kunjungi undangan digital kami melalui tautan berikut:
+
+https://vian-azis.github.io/the-wedding-anti-vian/?guest=${encodedName}
+
+Merupakan kehormatan dan kebahagiaan bagi kami
+jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.
+
+Terima kasih atas perhatian dan kehadirannya.
+
+*Hormat kami,
+Anti & Vian*
+
+---
+        `.trim();
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'invitation';
+                wrapper.setAttribute('tabindex', '0');
+                wrapper.setAttribute('role', 'button');
+                wrapper.setAttribute('aria-label', `Salin undangan untuk ${displayName}`);
+
+                wrapper.innerHTML = `
+          <h3>Kepada Yth.</h3>
+          <p>Bapak/Ibu/Saudara/i <strong>${displayName}</strong></p>
+          <hr>
+          <p>Dengan hormat,<br>
+          Kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dalam acara pernikahan kami:</p>
+
+          <p><strong>Anti & Vian</strong></p>
+
+          <p>Untuk informasi lengkap mengenai waktu dan tempat acara, silakan kunjungi undangan digital kami melalui tautan berikut:</p>
+          
+          <p><a href="https://vian-azis.github.io/the-wedding-anti-vian/?guest=${encodedName}" target="_blank" rel="noopener noreferrer">
+          https://vian-azis.github.io/the-wedding-anti-vian/?guest=${encodedName}</a></p>
+
+          <p>Merupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.</p>
+
+          <p>Terima kasih atas perhatian dan kehadirannya.</p>
+
+          <p>Hormat kami,<br><strong>Anti & Vian</strong></p>
+        `;
+
+                wrapper.addEventListener('click', () => {
+                    navigator.clipboard.writeText(message).then(() => {
+                        showCopyPopup();
+                    }).catch(() => {
+                        alert('Gagal menyalin teks. Silakan coba manual.');
+                    });
+                });
+
+                // Bisa juga menyalin saat tekan Enter saat focus (aksesibilitas)
+                wrapper.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        wrapper.click();
+                    }
+                });
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', e => {
+            renderInvitations(e.target.value.trim());
+        });
+
+        // Render awal semua undangan
+        renderInvitations();
+    </script>
+
+</body>
+
+</html>
