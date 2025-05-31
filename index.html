@@ -2003,19 +2003,10 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="floating-action d-flex align-items-end flex-column" style="z-index: 9999;"><button
-                                id="btnQrModal" onclick="showModal(qrModal)" class="btn btn-float"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
-                                    viewBox="0 0 256 256">
-                                    <rect x="40" y="40" width="80" height="80" rx="16"></rect>
-                                    <rect x="40" y="136" width="80" height="80" rx="16"></rect>
-                                    <rect x="136" y="40" width="80" height="80" rx="16"></rect>
-                                    <path d="M144,184a8,8,0,0,0,8-8V144a8,8,0,0,0-16,0v32A8,8,0,0,0,144,184Z"></path>
-                                    <path
-                                        d="M208,152H184v-8a8,8,0,0,0-16,0v56H144a8,8,0,0,0,0,16h32a8,8,0,0,0,8-8V168h24a8,8,0,0,0,0-16Z">
-                                    </path>
-                                    <path d="M208,184a8,8,0,0,0-8,8v16a8,8,0,0,0,16,0V192A8,8,0,0,0,208,184Z"></path>
-                                </svg></button> <button id="btnMusic" onclick="playMusic()"
+                        <div class="floating-action d-flex align-items-end flex-column" style="z-index: 9999;">
+                            <button id="btnQrModal" onclick="showModal(qrModal)" class="btn btn-float">
+                                <i class="icon ph-fill ph-gift" style="font-size: 28px;"></i>    
+                            </button> <button id="btnMusic" onclick="playMusic()"
                                 class="btn btn-float playing"><svg xmlns="http://www.w3.org/2000/svg" width="28"
                                     height="28" fill="currentColor" viewBox="0 0 256 256" class="play">
                                     <path
@@ -2065,7 +2056,7 @@
                     <div class="text-center py-4 px-4">
                         <div>
                             <div class="mx-auto">
-                                <img src="image/Wedding-AV.webp" width="210" height="210" alt="Wedding Icon"
+                                <img src="image/Wedding-AV.webp" width="190" height="190" alt="Wedding Icon"
                                     style="border-radius: 50%; border: 2px solid #e5e5e5;" />
                                 <div style="margin-top: 10px; text-align: center;"></div>
                             </div>
@@ -2075,11 +2066,11 @@
                         <div style="margin-bottom: 10px;">
                             <section
                                 style="background-color: #f9f4ee; padding: 2rem; border-radius: 1rem; max-width: 600px; margin: auto;">
-                                <div class="h4 mb-2 animate__animated animate__fadeInRight animate__slower"
-                                    style="color: #e2a7a5; font-size: 23px; font-family: 'Jost', sans-serif !important;">
-                                    Gift via Bank Transfer</div>
+                                <div class="h4 mb-2"
+                                    style="color: #e2a7a5; font-size: 20px; font-weight: 400; font-family: 'Jost', sans-serif !important;">
+                                    Digital Gift <i class="icon ph-fill ph-gift" style="font-size: 24px;"></i></div>
 
-                                <div class="animate__animated animate__fadeInDown animate__slower"
+                                <div class="animate__animated animate__fadeIn animate__slow"
                                     style="display: flex; align-items: center; margin-top: 2rem;">
                                     <img src="image/bri-logo.jpeg" alt="BRI"
                                         style="width: 50px; height: 50px; border-radius: 50%; margin-right: 1rem; border: 2px solid #f8c6d8;" />
@@ -2094,8 +2085,8 @@
                                     </div>
                                 </div>
 
-                                <div class="animate__animated animate__fadeInDown animate__slower"
-                                    style="display: flex; align-items: center; margin-top: 2rem; margin-bottom: 1rem;">
+                                <div class="animate__animated animate__fadeIn animate__slow"
+                                    style="display: flex; align-items: center; margin-top: 2rem; margin-bottom: 1rem; animation-delay: 0.4s;">
                                     <img src="image/mandiri-logo.jpg" alt="Mandiri"
                                         style="width: 50px; height: 50px; border-radius: 50%; margin-right: 1rem; border: 2px solid #f8c6d8;" />
                                     <div>
@@ -2107,6 +2098,33 @@
                                             style="margin: 0; color: #666; text-align:left; font-family: 'Jost', sans-serif !important;">
                                             Vian Azis Tio R - Mandiri</p>
                                     </div>
+                                </div>
+
+                                <div class="animate__animated animate__fadeIn animate__slow"
+                                    style="display: flex; align-items: center; margin-top: 2rem; animation-delay: 0.8s;">
+                                    <a class="mx-auto" href="https://wa.me/628976306381?text=Halo%20Anti%20%26%20Vian%2C%20selamat%20menempuh%20hidup%20baru%21%20Saya%20ingin%20memberikan%20hadiah%20melalui%20transfer%20bank%20sebagai%20ucapan%20selamat.%0A%0ASemoga%20pernikahan%20kalian%20penuh%20kebahagiaan%20dan%20keberkahan." 
+                                    target="_blank"
+                                    style="
+                                        display: inline-flex;
+                                        align-items: center;
+                                        background-color: white;
+                                        color: #25D366;
+                                        border: 2px solid #25D366;
+                                        padding: 8px 16px;
+                                        border-radius: 10px;
+                                        text-decoration: none;
+                                        font-family: sans-serif;
+                                        font-size: 14px;
+                                        transition: all 0.3s ease;
+                                    "
+                                    onmouseover="this.style.backgroundColor='#25D366'; this.style.color='white'; this.querySelector('img').style.filter='invert(1)'"
+                                    onmouseout="this.style.backgroundColor='white'; this.style.color='#25D366'; this.querySelector('img').style.filter='invert(48%) sepia(95%) saturate(501%) hue-rotate(92deg) brightness(93%) contrast(89%)'"
+                                    >
+                                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" 
+                                        alt="WhatsApp" 
+                                        style="width: 16px; height: 16px; margin-right: 8px; filter: invert(48%) sepia(95%) saturate(501%) hue-rotate(92deg) brightness(93%) contrast(89%);" />
+                                    Kirim Bukti
+                                    </a>
                                 </div>
                             </section>
 
