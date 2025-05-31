@@ -41,7 +41,7 @@
             font-weight: 700;
             font-size: 2.2rem;
             margin-bottom: 1rem;
-            color: #e74c3c;
+            color: #e6a0ad;
             text-align: center;
             user-select: none;
         }
@@ -59,7 +59,7 @@
         }
 
         #searchInput:focus {
-            border-color: #e74c3c;
+            border-color: #e6a0ad;
             box-shadow: 0 0 8px rgba(231, 76, 60, 0.3);
             outline: none;
         }
@@ -82,15 +82,15 @@
         }
 
         .invitation:hover {
-            box-shadow: 0 15px 25px rgba(231, 76, 60, 0.25);
+            box-shadow: 0 15px 25px rgba(230, 160, 173, 0.25);
             transform: translateY(-5px);
-            background: #fff7f7;
+            background: rgb(255, 255, 255);
         }
 
         .invitation h3 {
             margin-top: 0;
             font-weight: 700;
-            color: #c0392b;
+            color: #e6a0ad;
             font-size: 1.3rem;
             letter-spacing: 0.02em;
         }
@@ -109,7 +109,7 @@
         }
 
         .invitation a {
-            color: #e74c3c;
+            color: #e6a0ad;
             text-decoration: none;
             word-break: break-word;
             font-weight: 600;
@@ -122,9 +122,10 @@
         /* Popup "Tersalin" */
         .copied-popup {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #27ae60;
+            top: 80px;
+            left: 50%; /* Tengah secara horizontal */
+            transform: translateX(-50%); /* Geser balik 50% lebar elemen */
+            background-color: #e6a0ad;
             color: #fff;
             padding: 10px 18px;
             border-radius: 25px;
@@ -137,6 +138,7 @@
             user-select: none;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
+
 
         .copied-popup.show {
             opacity: 1;
@@ -165,8 +167,23 @@
 </head>
 
 <body>
-    <h1>Daftar Undangan Pernikahan</h1>
-    <input type="text" id="searchInput" placeholder="Cari nama tamu..." autocomplete="off" aria-label="Cari nama tamu" />
+    <input type="text" id="searchInput" placeholder="Cari nama tamu..." autocomplete="off" aria-label="Cari nama tamu"
+        style="
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        padding: 12px 16px;
+        font-size: 16px;
+        border: 1px solid #e6a0ad;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        z-index: 999;
+    " />
+    <div style="margin-top: 60px !important;"></div>
 
     <div id="container"></div>
 
