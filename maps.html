@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="color-scheme" content="light only">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="google" content="notranslate">
+  <title>Wedding Map - Anti & Vian</title>
+  <meta name="title" content="Wedding - Anti & Vian">
+  <meta name="description" content="Save the date for the wedding of Vian & Anti - 22 June 2025.">
+  <meta itemprop="image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp">
+  <link rel="icon" type="image/webp" href="https://vian-azis.github.io/the-wedding-anti-vian/image/Logo-AV.webp">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vian-azis.github.io/the-wedding-anti-vian/">
+  <meta property="og:title" content="Wedding - Anti & Vian">
+  <meta property="og:description" content="Save the date for the wedding of Anti & Vian - 22 June 2025.">
+  <meta property="og:image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"
+  />
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    .leaflet-popup-content-wrapper {
+      background: #ffeaf5;
+      color: #800040;
+      font-weight: bold;
+      font-size: 10px;
+      border-radius: 10px;
+      padding: 4px !important;
+      margin: 0 !important;
+      box-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
+    }
+
+    .leaflet-popup-content {
+      margin: 0 !important;
+      padding: 2px !important;
+    }
+
+    .leaflet-routing-container {
+      display: none;
+    }
+
+    .leaflet-bar a {
+      background-color: #ffb6c1 !important;
+      color: white !important;
+    }
+
+    .leaflet-control {
+      background-color: #ffe0f0 !important;
+    }
+
+    #routeSummary {
+      position: absolute;
+      top: 10px;
+      right: 10px;      /* Pindah dari left ke right */
+      transform: none;  /* Hilangkan translate */
+      background: #fff0f5;
+      border: 1px solid #ffc0cb;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 10px;
+      color: #d63384;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 0 6px rgba(255, 192, 203, 0.5);
+    }
+
+    #startNavigation {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="routeSummary"></div>
+  <button id="startNavigation" style="
+      display: flex; 
+      align-items: center; 
+      gap: 8px; 
+      padding: 5px 8px; 
+      background-color: white; 
+      color: #4285F4; 
+      border: 2px solid #4285F4; 
+      border-radius: 20px; 
+      font-size: 12px; 
+      cursor: pointer; 
+      box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
+      font-weight: 600;
+    ">
+    <img src="image/google-maps-logo.png" alt="Google Maps" style="height:20px; border: 2px solid white; border-radius: 4px;">
+    Open in Google Maps
+  </button>
+
+
+
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
+
+  <script>
+    const fixedLat = -8.367006;
+    const fixedLon = 113.472715;
+    const fixedPoint = L.latLng(fixedLat, fixedLon);
+
+    const map = L.map("map", {
+      zoomControl: true,
+      attributionControl: true,
+    }).setView([fixedLat, fixedLon], 17);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+      attribution: "Made with 💗 by Vian for Anti",
+    }).addTo(map);
+
+    const houseIcon = L.icon({
+      iconUrl: "image/pink-house.png",
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    });
+
+    L.marker([fixedLat, fixedLon], { icon: houseIcon })
+      .addTo(map)
+      .bindPopup(
+        "<div style='text-align:center;'><span style='font-size: 14px'>💒</span> <i style='font-size: 10px;'>Wedding Location</i></div>",
+        { closeButton: false }
+      )
+      .openPopup();
+
+    // Fungsi tampilkan route dengan OSRM
+    function showRoute(userLat, userLon) {
+      const userPoint = L.latLng(userLat, userLon);
+
+      const routingControl = L.Routing.control({
+        waypoints: [userPoint, fixedPoint],
+        router: L.Routing.osrmv1({
+          serviceUrl: "https://router.project-osrm.org/route/v1",
+        }),
+        lineOptions: {
+          styles: [{ color: "#ff69b4", weight: 5 }],
+        },
+        showAlternatives: false,
+        routeWhileDragging: false,
+        addWaypoints: false,
+        createMarker: () => null,
+      }).addTo(map);
+
+      routingControl.on("routesfound", function (e) {
+        const route = e.routes[0];
+        const summary = route.summary;
+        const distance = (summary.totalDistance / 1000).toFixed(2) + " km";
+        const duration = Math.ceil(summary.totalTime / 60) + " menit";
+
+        const summaryBox = document.getElementById("routeSummary");
+        summaryBox.style.display = "block";
+        summaryBox.innerHTML = `<b>Jarak:</b> ${distance}<br><b>Perkiraan:</b> ${duration}`;
+        map.fitBounds(L.latLngBounds(route.coordinates).pad(0.2));
+      });
+    }
+
+    // Saat load, minta lokasi langsung
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userLat = position.coords.latitude;
+          const userLon = position.coords.longitude;
+          showRoute(userLat, userLon);
+        },
+        () => {
+          // Kalau tolak, gak tampil route
+        }
+      );
+    }
+
+    // Tombol buka Google Maps dengan navigasi jika ada lokasi, kalau tidak ada langsung point fixed
+    document
+      .getElementById("startNavigation")
+      .addEventListener("click", function () {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const userLat = position.coords.latitude;
+              const userLon = position.coords.longitude;
+              const url = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLon}&destination=${fixedLat},${fixedLon}&travelmode=driving`;
+              window.open(url, "_blank");
+            },
+            () => {
+              // Jika tolak izin, buka lokasi fixed point saja
+              const url = `https://www.google.com/maps/search/?api=1&query=${fixedLat},${fixedLon}`;
+              window.open(url, "_blank");
+            }
+          );
+        } else {
+          alert("Browser Anda tidak mendukung geolokasi.");
+        }
+      });
+  </script>
+</body>
+</html>
