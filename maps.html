@@ -145,16 +145,16 @@
     }).addTo(map);
 
     const houseIcon = L.icon({
-      iconUrl: "image/pink-house.png",
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -32],
+      iconUrl: 'image/pink-house.png',
+      iconSize: [24, 24],          // updated size of the icon image
+      iconAnchor: [12, 24],        // bottom center of the icon
+      popupAnchor: [0, -24]        // position of the popup relative to the icon
     });
 
     L.marker([fixedLat, fixedLon], { icon: houseIcon })
       .addTo(map)
       .bindPopup(
-        "<div style='text-align:center;'><span style='font-size: 14px'>💒</span> <i style='font-size: 10px;'>Wedding Location</i></div>",
+        "<div style='text-align:center;'><span style='font-size: 14px'>💗</span> <i style='font-size: 10px;'>Wedding Location</i></div>",
         { closeButton: false }
       )
       .openPopup();
@@ -208,23 +208,8 @@
     document
       .getElementById("startNavigation")
       .addEventListener("click", function () {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const userLat = position.coords.latitude;
-              const userLon = position.coords.longitude;
-              const url = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLon}&destination=${fixedLat},${fixedLon}&travelmode=driving`;
-              window.open(url, "_blank");
-            },
-            () => {
-              // Jika tolak izin, buka lokasi fixed point saja
-              const url = `https://www.google.com/maps/search/?api=1&query=${fixedLat},${fixedLon}`;
-              window.open(url, "_blank");
-            }
-          );
-        } else {
-          alert("Browser Anda tidak mendukung geolokasi.");
-        }
+          const url = `https://www.google.com/maps/search/?api=1&query=${fixedLat},${fixedLon}`;
+          window.open(url, "_blank");
       });
   </script>
 </body>

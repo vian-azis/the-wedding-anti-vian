@@ -114,14 +114,15 @@
   // Custom house icon
   const houseIcon = L.icon({
     iconUrl: 'image/pink-house.png',
-    iconSize: [32, 32],           // size of the icon image
-    iconAnchor: [16, 32],         // point of the icon which will correspond to marker's location (bottom center)
-    popupAnchor: [0, -32]
+    iconSize: [24, 24],          // updated size of the icon image
+    iconAnchor: [12, 24],        // bottom center of the icon
+    popupAnchor: [0, -24]        // position of the popup relative to the icon
   });
+
 
   // Default marker with popup
   const weddingMarker = L.marker([fixedLat, fixedLon], { icon: houseIcon }).addTo(map)
-    .bindPopup("<div style='text-align:center;'><span style='font-size: 14px'>💒</span> <i style='font-size: 10px; font-weight: 400'>Wedding Location</i></div>", { closeButton: false })
+    .bindPopup("<div style='text-align:center;'><span style='font-size: 14px'>💗</span> <i style='font-size: 10px; font-weight: 400'>Wedding Location</i></div>", { closeButton: false })
     .openPopup();
 
   // Try geolocation
