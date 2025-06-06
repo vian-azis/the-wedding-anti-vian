@@ -101,6 +101,30 @@
       cursor: pointer;
     }
   </style>
+  <script>
+  const attributionLink = document.querySelector('.leaflet-control-attribution a[href="https://leafletjs.com"]');
+  if (attributionLink) {
+      attributionLink.remove(); // Hapus hanya tag <a>
+  }
+
+  // Opsional: Hapus pemisah " | " jika tidak diperlukan
+  const separator = document.querySelector('.leaflet-control-attribution span');
+  if (separator) {
+      separator.remove();
+  }
+  window.addEventListener('load', function () {
+      const attributionLink = document.querySelector('.leaflet-control-attribution a[href="https://leafletjs.com"]');
+      if (attributionLink) {
+          attributionLink.remove(); // Hapus hanya tag <a>
+      }
+
+      // Opsional: Hapus pemisah " | " jika tidak diperlukan
+      const separator = document.querySelector('.leaflet-control-attribution span');
+      if (separator) {
+          separator.remove();
+      }
+  });
+  </script>
 </head>
 <body>
   <div id="map"></div>
@@ -122,10 +146,7 @@
     <img src="image/google-maps-logo.png" alt="Google Maps" style="height:20px;">
     Open in Google Maps
   </button>
-
-
-
-
+  
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>

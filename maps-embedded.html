@@ -73,6 +73,30 @@
       background-color: #ffe0f0 !important;
     }
   </style>
+  <script>
+  const attributionLink = document.querySelector('.leaflet-control-attribution a[href="https://leafletjs.com"]');
+  if (attributionLink) {
+      attributionLink.remove(); // Hapus hanya tag <a>
+  }
+
+  // Opsional: Hapus pemisah " | " jika tidak diperlukan
+  const separator = document.querySelector('.leaflet-control-attribution span');
+  if (separator) {
+      separator.remove();
+  }
+  window.addEventListener('load', function () {
+      const attributionLink = document.querySelector('.leaflet-control-attribution a[href="https://leafletjs.com"]');
+      if (attributionLink) {
+          attributionLink.remove(); // Hapus hanya tag <a>
+      }
+
+      // Opsional: Hapus pemisah " | " jika tidak diperlukan
+      const separator = document.querySelector('.leaflet-control-attribution span');
+      if (separator) {
+          separator.remove();
+      }
+  });
+  </script>
 </head>
 <body>
 
