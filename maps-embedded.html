@@ -177,9 +177,17 @@
         routingControl.on('routesfound', function (e) {
           const route = e.routes[0];
           const summary = route.summary;
-          const distance = (summary.totalDistance / 1000).toFixed(2) + " km";
+          const distanceValue = summary.totalDistance / 1000;
+          const distance = distanceValue.toFixed(2) + " km";
 
-          const totalMinutes = Math.ceil(summary.totalTime / 60);
+          let totalMinutes;
+
+          if (distanceValue < 60) {
+            totalMinutes = Math.ceil((distanceValue / 40) * 60);
+          } else {
+            totalMinutes = Math.ceil(summary.totalTime / 60);
+          }
+
           let duration;
           if (totalMinutes < 60) {
             duration = totalMinutes + " mnt";
@@ -197,9 +205,11 @@
               <b>Perkiraan:</b> ${duration}
             `;
           }
+
           // Fit bounds ke seluruh rute
           map.fitBounds(L.latLngBounds(route.coordinates).pad(0.2));
         });
+
       },
       function () {
         // Tidak perlu aksi tambahan, marker default sudah muncul

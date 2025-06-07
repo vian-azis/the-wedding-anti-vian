@@ -1,7 +1,7 @@
 
         @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('/fonts/e111viva/style.css');
-@import url('/fonts/against/style.css');
+@import url('../fonts/e111viva/style.css');
+@import url('../fonts/against/style.css');
 
 :root {
     --inv-bg: #f6f4f0;
@@ -51,9 +51,9 @@
     
 
 
-        @import url('/fonts/brittany_signature/BrittanySignature.css');
-        @import url('/fonts/photograph_signature/fonts.css');
-        @import url('/fonts/heatwood/Heatwood.css');
+        @import url('../fonts/brittany_signature/BrittanySignature.css');
+        @import url('../fonts/photograph_signature/fonts.css');
+        @import url('../fonts/heatwood/Heatwood.css');
         .font-brittany-signature {
             font-family: 'Brittany Signature';
             line-height: 1.6 !important;

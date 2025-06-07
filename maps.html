@@ -371,7 +371,13 @@
         const summary = route.summary;
         const distanceKm = (summary.totalDistance / 1000).toFixed(2);
 
-        let timeMin = Math.round(summary.totalTime / 60);
+        let timeMin;
+        if (distanceKm < 60) {
+          timeMin = Math.round((distanceKm / 40) * 60);
+        } else {
+          timeMin = Math.round(summary.totalTime / 60);
+        }
+
         let timeText = "";
 
         if (timeMin >= 60) {
