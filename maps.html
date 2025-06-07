@@ -17,7 +17,7 @@
 
     .leaflet-popup-content-wrapper {
       background: #ffeaf5;
-      color: #800040;
+      color: #ff4081;
       font-weight: bold;
       font-size: 10px;
       border-radius: 10px;
@@ -30,7 +30,7 @@
     }
 
     .leaflet-control {
-      background-color: #ffe0f0 !important;
+      background-color: #ffeaf5 !important;
     }
 
     #startNavigation {
@@ -67,12 +67,13 @@
       background-color: #ffb6c1;
       border: none;
       border-radius: 4px;
+      outline: 2px solid rgba(0, 0, 0, 0.2);
       color: white;
       padding: 8px;
       margin-bottom: 5px;
       cursor: pointer;
-      width: 34px;
-      height: 34px;
+      width: 33px;
+      height: 33px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -80,7 +81,7 @@
     }
 
     .custom-zoom-button:hover {
-      background-color: #ff80ab;
+      background-color: #ffb6c1;
     }
 
     .leaflet-routing-container {
@@ -213,7 +214,12 @@
   </button>
 
   <div id="zoomToWedding">
-    <button id="zoomBtn" class="custom-zoom-button" title="Zoom ke lokasi pernikahan">🎯</button>
+    <button id="zoomBtn" class="custom-zoom-button" title="Zoom ke lokasi pernikahan">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8a4 4 0 100 8 4 4 0 000-8zm0-7a1 1 0 011 1v1.07a9.005 9.005 0 017.93 7.93H22a1 1 0 110 2h-1.07a9.005 9.005 0 01-7.93 7.93V22a1 1 0 11-2 0v-1.07a9.005 9.005 0 01-7.93-7.93H2a1 1 0 110-2h1.07a9.005 9.005 0 017.93-7.93V2a1 1 0 011-1z" />
+      </svg>
+    </button>
+
   </div>
 
   <div id="loadingSpinner"></div>
@@ -320,18 +326,6 @@
     function showRoute(userLat, userLon) {
       const userPoint = L.latLng(userLat, userLon);
 
-      // Dot lokasi user
-      setTimeout(() => {
-        L.circleMarker(userPoint, {
-          radius: 6,
-          fillColor: "#4285F4",
-          color: "#fff",
-          weight: 2,
-          opacity: 1,
-          fillOpacity: 1
-        }).addTo(map);
-      }, 500);
-
       // Routing
       const control = L.Routing.control({
         waypoints: [userPoint, fixedPoint],
@@ -346,6 +340,18 @@
         routeWhileDragging: false,
         fitSelectedRoutes: true
       }).addTo(map);
+
+      // Dot lokasi user
+      setTimeout(() => {
+        L.circleMarker(userPoint, {
+          radius: 6,
+          fillColor: "#4285F4",
+          color: "#fff",
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 1
+        }).addTo(map);
+      }, 500);
 
       control.on("routesfound", function (e) {
         const route = e.routes[0];
