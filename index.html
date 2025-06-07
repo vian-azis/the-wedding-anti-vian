@@ -2397,6 +2397,48 @@
             const nama = document.getElementById("inputname").value.trim();
             const komentar = document.getElementById("inputcomment").value.trim();
 
+            // Daftar kata kotor (contoh, bisa ditambah sesuai kebutuhan)
+            const kataKotor = [
+                "anjing", "bangsat", "babi", "kontol", "memek", "ngentot", "perek", "lonte", "kampret",
+                "setan", "goblok", "bodoh", "tolol", "idiot", "tai", "jembut", "pepek", "pantek",
+                "asu", "bacot", "brengsek", "sinting", "gila", "kntl", "mksd", "bgsd",
+                "fuck", "shit", "bitch", "asshole", "dick", "pussy", "bastard", "faggot", "cunt", "slut",
+                "motherfucker", "nigger", "retard", "whore", "suck", "jerk", "moron", "idiot", "pelacur", 
+                "murahan", "cerai", "banci",
+
+                // Variasi penulisan
+                "anj1ng", "4njing", "4nj1ng", "b4bi", "b@bi", "k0ntol", "kont*l", "mem3k", "m3mek", "ng3ntot",
+                "p3rek", "lont3", "tol0l", "t0lol", "t@i", "t4i", "j3mbut", "p4ntek", "b4cot", "br3ngsek", "s1nting",
+                "f*ck", "f**k", "fuk", "fucc", "fuxk", "sh1t", "sh!t", "biatch", "b1tch", "b!tch", "a55hole",
+                "d1ck", "d!ck", "pus5y", "pu55y", "c*nt", "cnt", "slvt", "wh0re", "sux", "suckk", "jerkk",
+                "n1gger", "ret4rd", "r3tard", "idi0t", "m0ron",
+
+                // Tambahan hinaan pernikahan
+                "pernikahan sampah", "nikah murahan", "nikah settingan", "pasangan murahan", "istri murahan", 
+                "suami banci", "suami gak berguna", "istri pelacur", "nikah demi duit", "modal kawin",
+                "cuma numpang hidup", "ngemis cinta", "nikah dagelan", "pasangan sampah",
+                "gak pantes nikah", "salah pilih", "salah jodoh", "istri jelek", "suami jelek",
+                "ciee kawin kontrak", "kok bisa laku?", "miris liat nikahnya", "pantas ditinggal",
+                "gak akan lama", "nunggu cerai doang", "udah keliatan bakal gagal", "pernikahan gagal",
+                "nikah instan", "drama rumah tangga", "hamil duluan", "hamidun",
+
+                // English marriage insults
+                "fake marriage", "trash couple", "gold digger", "desperate marriage", "cheap wife", "useless husband",
+                "just for money", "attention seekers", "you'll get divorced", "pathetic couple", "mail order wife",
+                "simp husband", "beta male", "nobody wants you", "you married down", "trap marriage",
+                "how long will it last?", "lol that wedding", "what a joke", "fake smile", "just for clout",
+                "waiting for divorce", "he settled", "she's out of his league", "wedding cringe"
+            ];
+
+            // Konversi ke huruf kecil dan cek apakah mengandung kata kotor
+            const komentarLower = komentar.toLowerCase();
+            const mengandungKataKotor = kataKotor.some(kata => komentarLower.includes(kata));
+
+            if (mengandungKataKotor) {
+                alert("Komentar mengandung kata yang tidak pantas. Silakan ubah komentar Anda.");
+                return;
+            }
+
             if (!nama || !komentar) {
                 alert("Harap isi nama dan komentar.");
                 return;
