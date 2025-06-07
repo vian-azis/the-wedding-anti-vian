@@ -16,7 +16,7 @@
     }
 
     .leaflet-popup-content-wrapper {
-      background: #ffeaf5;
+      background: white;
       color: #800040;
       font-weight: bold;
       font-size: 10px;
@@ -343,7 +343,7 @@
         waypoints: [userPoint, fixedPoint],
         router: L.Routing.osrmv1({ serviceUrl: "https://router.project-osrm.org/route/v1" }),
         lineOptions: {
-          styles: [{ color: "#ffb6c1", weight: 5 }]
+          styles: [{ color: "#ff69b4", weight: 5 }]
         },
         createMarker: () => null,
         show: false,
@@ -387,13 +387,16 @@
       });
 
       map.panTo(userPoint, { animate: true, duration: 1 });
+      
+      setTimeout(() => {
+        showLoading(false);
+      }, 1000);
     }
 
     if (navigator.geolocation) {
       showLoading(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          showLoading(false);
           showRoute(position.coords.latitude, position.coords.longitude);
         },
         (err) => {
