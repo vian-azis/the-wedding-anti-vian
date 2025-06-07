@@ -1,43 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <meta name="color-scheme" content="light only">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="google" content="notranslate">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wedding Map - Anti & Vian</title>
-  <meta name="title" content="Wedding - Anti & Vian">
-  <meta name="description" content="Save the date for the wedding of Vian & Anti - 22 June 2025.">
-  <meta itemprop="image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp">
-  <link rel="icon" type="image/webp" href="https://vian-azis.github.io/the-wedding-anti-vian/image/Logo-AV.webp">
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://vian-azis.github.io/the-wedding-anti-vian/">
-  <meta property="og:title" content="Wedding - Anti & Vian">
-  <meta property="og:description" content="Save the date for the wedding of Anti & Vian - 22 June 2025.">
-  <meta property="og:image" content="https://vian-azis.github.io/the-wedding-anti-vian/image/Wedding-AV.webp">
-
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"
-  />
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
   <style>
-    html,
-    body {
+    html, body, #map {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: "Segoe UI", sans-serif;
-    }
-
-    #map {
-      height: 100%;
       width: 100%;
+      font-family: 'Jost', sans-serif !important;
     }
 
     .leaflet-popup-content-wrapper {
@@ -46,43 +21,16 @@
       font-weight: bold;
       font-size: 10px;
       border-radius: 10px;
-      padding: 4px !important;
-      margin: 0 !important;
-      box-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
-    }
-
-    .leaflet-popup-content {
-      margin: 0 !important;
-      padding: 2px !important;
-    }
-
-    .leaflet-routing-container {
-      display: none;
     }
 
     .leaflet-bar a {
       background-color: #ffb6c1 !important;
       color: white !important;
+      border: none !important;
     }
 
     .leaflet-control {
       background-color: #ffe0f0 !important;
-    }
-
-    #routeSummary {
-      position: absolute;
-      top: 10px;
-      right: 10px;      /* Pindah dari left ke right */
-      transform: none;  /* Hilangkan translate */
-      background: #fff0f5;
-      border: 1px solid #ffc0cb;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 10px;
-      color: #d63384;
-      display: none;
-      z-index: 1000;
-      box-shadow: 0 0 6px rgba(255, 192, 203, 0.5);
     }
 
     #startNavigation {
@@ -90,148 +38,358 @@
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      padding: 10px 16px;
+      background-color: white;
+      color: #4285F4;
+      border: 2px solid #4285F4;
+      padding-top: 8px;
+      padding-right: 8px;
+      padding-bottom: 8px;
+      padding-left: 0px;
       border-radius: 20px;
       font-size: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 1001;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
+    }
+
+    #zoomToWedding {
+      position: absolute;
+      bottom: 100px;
+      right: 10px;
+      z-index: 1001;
+    }
+
+    .custom-zoom-button {
+      background-color: #ffb6c1;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      padding: 8px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .custom-zoom-button:hover {
+      background-color: #ff80ab;
+    }
+
+    .leaflet-routing-container {
+      display: none;
+    }
+
+    .routing-info {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      color: #ff4081;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      z-index: 1002;
+    }
+
+    /* Loading Spinner Styles */
+    #loadingSpinner {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1100;
+      width: 20px;
+      height: 20px;
+      border: 4px solid #ffb6c1;
+      border-top: 4px solid #ff4081;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    .countdown-box {
+      background-color: #ffb6c1; /* light pink */
+      color: white; /* dark pink */
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      min-width: 35px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .countdown-label {
+      font-size: 10px;
+      font-weight: 800;
+      display: block;
+      margin-top: 2px;
+      color: white;
     }
   </style>
+  
   <script>
-  const attributionLink = document.querySelector('.leaflet-control-attribution a[href="https://leafletjs.com"]');
-  if (attributionLink) {
-      attributionLink.remove(); // Hapus hanya tag <a>
-  }
+    const attributionLink = document.querySelector('.leaflet-control-attribution a[href="https://leafletjs.com"]');
+    if (attributionLink) {
+        attributionLink.remove(); // Hapus hanya tag <a>
+    }
 
-  // Opsional: Hapus pemisah " | " jika tidak diperlukan
-  const separator = document.querySelector('.leaflet-control-attribution span');
-  if (separator) {
-      separator.remove();
-  }
-  window.addEventListener('load', function () {
-      const attributionLink = document.querySelector('.leaflet-control-attribution a[href="https://leafletjs.com"]');
-      if (attributionLink) {
-          attributionLink.remove(); // Hapus hanya tag <a>
-      }
+    // Opsional: Hapus pemisah " | " jika tidak diperlukan
+    const separator = document.querySelector('.leaflet-control-attribution span');
+    if (separator) {
+        separator.remove();
+    }
+    window.addEventListener('load', function () {
+        const attributionLink = document.querySelector('.leaflet-control-attribution a[href="https://leafletjs.com"]');
+        if (attributionLink) {
+            attributionLink.remove(); // Hapus hanya tag <a>
+        }
 
-      // Opsional: Hapus pemisah " | " jika tidak diperlukan
-      const separator = document.querySelector('.leaflet-control-attribution span');
-      if (separator) {
-          separator.remove();
-      }
-  });
+        // Opsional: Hapus pemisah " | " jika tidak diperlukan
+        const separator = document.querySelector('.leaflet-control-attribution span');
+        if (separator) {
+            separator.remove();
+        }
+    });
   </script>
 </head>
 <body>
-  <div id="map"></div>
-  <div id="routeSummary"></div>
-  <button id="startNavigation" style="
-      display: flex; 
-      align-items: center; 
-      gap: 8px; 
-      padding: 5px 8px 5px 0px; 
-      background-color: white; 
-      color: #4285F4; 
-      border: 2px solid #4285F4; 
-      border-radius: 20px; 
-      font-size: 12px; 
-      cursor: pointer; 
-      box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
+  <div id="countdown" style="
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 1200;
+    font-family: 'Jost', sans-serif !important;
+    user-select: none;
+  "></div>
+  <div style="
+    margin-top: 8px;
+    text-align: center;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1200;
+  ">
+    <select id="eventSelect" style="
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid #ffb6c1;
       font-weight: 600;
+      background-color: #ffb6c1;
+      color: white;
+      font-family: 'Jost', sans-serif !important;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     ">
-    <img src="image/google-maps-logo.png" alt="Google Maps" style="height:20px;">
+      <option value="resepsi" selected>Resepsi</option>
+      <option value="akad">Akad</option>
+    </select>
+  </div>
+
+  <div id="map"></div>
+
+  <div id="routingInfo" class="routing-info" style="display:none;"></div>
+
+  <button id="startNavigation">
+    <img src="image/google-maps-logo.png" alt="Google Maps" style="height:20px;" />
     Open in Google Maps
   </button>
-  
-  <!-- Leaflet JS -->
+
+  <div id="zoomToWedding">
+    <button id="zoomBtn" class="custom-zoom-button" title="Zoom ke lokasi pernikahan">🎯</button>
+  </div>
+
+  <div id="loadingSpinner"></div>
+
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
 
+  <script>
+    const countdownElement = document.getElementById('countdown');
+    let targetDate = new Date('2025-06-22T14:00:00');
+
+    document.getElementById('eventSelect').addEventListener('change', function () {
+      const selected = this.value;
+      if (selected === 'akad') {
+        targetDate = new Date('2025-06-22T06:00:00');
+      } else {
+        targetDate = new Date('2025-06-22T14:00:00');
+      }
+    });
+
+    function updateCountdown() {
+      const now = new Date();
+      let diff = targetDate - now;
+
+      if (diff <= 0) {
+        countdownElement.innerHTML = `<div class="countdown-box" style="min-width:auto;">🎉 Resepsi sudah dimulai!</div>`;
+        clearInterval(countdownInterval);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff -= minutes * (1000 * 60);
+
+      const seconds = Math.floor(diff / 1000);
+
+      countdownElement.innerHTML = `
+        <div class="countdown-box">
+          ${days} <span class="countdown-label">Hari</span>
+        </div>
+        <div class="countdown-box">
+          ${hours} <span class="countdown-label">Jam</span>
+        </div>
+        <div class="countdown-box">
+          ${minutes} <span class="countdown-label">Menit</span>
+        </div>
+        <div class="countdown-box">
+          ${seconds} <span class="countdown-label">Detik</span>
+        </div>
+      `;
+    }
+
+    updateCountdown();
+    const countdownInterval = setInterval(updateCountdown, 1000);
+  </script>
   <script>
     const fixedLat = -8.367006;
     const fixedLon = 113.472715;
     const fixedPoint = L.latLng(fixedLat, fixedLon);
 
-    const map = L.map("map", {
-      zoomControl: true,
-      attributionControl: true,
-    }).setView([fixedLat, fixedLon], 17);
+    const map = L.map("map", { zoomControl: false }).setView([fixedLat, fixedLon], 17);
 
+    // Tambahkan tile layer OSM HOT
     L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
       attribution: "Made with 💗 by Vian for Anti",
     }).addTo(map);
 
+    // Kontrol zoom kanan bawah
+    L.control.zoom({ position: "bottomright" }).addTo(map);
+
+    // Marker lokasi pernikahan
     const houseIcon = L.icon({
       iconUrl: 'image/pink-house.png',
-      iconSize: [24, 24],          // updated size of the icon image
-      iconAnchor: [12, 24],        // bottom center of the icon
-      popupAnchor: [0, -24]        // position of the popup relative to the icon
+      iconSize: [24, 24],
+      iconAnchor: [12, 24],
+      popupAnchor: [0, -24]
     });
 
-    L.marker([fixedLat, fixedLon], { icon: houseIcon })
+    L.marker(fixedPoint, { icon: houseIcon })
       .addTo(map)
       .bindPopup(
-        "<div style='text-align:center;'><span style='font-size: 14px'>💗</span> <i style='font-size: 10px;'>Wedding Location</i></div>",
+        "<div style='text-align:center;'><span style='font-size: 14px'>💗</span> <i style='font-size: 11px;'>Wedding Location</i></div>",
         { closeButton: false }
       )
       .openPopup();
 
-    // Fungsi tampilkan route dengan OSRM
+    // Zoom ke lokasi pernikahan
+    document.getElementById("zoomBtn").addEventListener("click", function () {
+      map.setView(fixedPoint, 17, { animate: true });
+    });
+
+    // Show/hide loading spinner
+    function showLoading(show) {
+      const spinner = document.getElementById("loadingSpinner");
+      spinner.style.display = show ? "block" : "none";
+    }
+
+    // Lokasi user dan routing
     function showRoute(userLat, userLon) {
       const userPoint = L.latLng(userLat, userLon);
 
-      const routingControl = L.Routing.control({
+      // Dot lokasi user
+      setTimeout(() => {
+        L.circleMarker(userPoint, {
+          radius: 6,
+          fillColor: "#4285F4",
+          color: "#fff",
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 1
+        }).addTo(map);
+      }, 500);
+
+      // Routing
+      const control = L.Routing.control({
         waypoints: [userPoint, fixedPoint],
-        router: L.Routing.osrmv1({
-          serviceUrl: "https://router.project-osrm.org/route/v1",
-        }),
+        router: L.Routing.osrmv1({ serviceUrl: "https://router.project-osrm.org/route/v1" }),
         lineOptions: {
-          styles: [{ color: "#ff69b4", weight: 5 }],
+          styles: [{ color: "#ff69b4", weight: 5 }]
         },
-        showAlternatives: false,
-        routeWhileDragging: false,
-        addWaypoints: false,
         createMarker: () => null,
+        show: false,
+        addWaypoints: false,
+        draggableWaypoints: false,
+        routeWhileDragging: false,
+        fitSelectedRoutes: true
       }).addTo(map);
 
-      routingControl.on("routesfound", function (e) {
+      control.on("routesfound", function (e) {
         const route = e.routes[0];
         const summary = route.summary;
-        const distance = (summary.totalDistance / 1000).toFixed(2) + " km";
-        const duration = Math.ceil(summary.totalTime / 60) + " menit";
+        const distanceKm = (summary.totalDistance / 1000).toFixed(2);
 
-        const summaryBox = document.getElementById("routeSummary");
-        summaryBox.style.display = "block";
-        summaryBox.innerHTML = `<b>Jarak:</b> ${distance}<br><b>Perkiraan:</b> ${duration}`;
-        map.fitBounds(L.latLngBounds(route.coordinates).pad(0.2));
+        let timeMin = Math.round(summary.totalTime / 60);
+        let timeText = "";
+
+        if (timeMin >= 60) {
+          const hours = Math.floor(timeMin / 60);
+          const minutes = timeMin % 60;
+          timeText = `${hours} j${minutes > 0 ? " " + minutes + " mnt" : ""}`;
+        } else {
+          timeText = `${timeMin} menit`;
+        }
+
+        document.getElementById("routingInfo").innerHTML = `🚗 ${distanceKm} km • ⏱️ ${timeText}`;
+        document.getElementById("routingInfo").style.display = "block";
       });
+
+      map.panTo(userPoint, { animate: true, duration: 1 });
     }
 
-    // Saat load, minta lokasi langsung
     if (navigator.geolocation) {
+      showLoading(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const userLat = position.coords.latitude;
-          const userLon = position.coords.longitude;
-          showRoute(userLat, userLon);
+          showLoading(false);
+          showRoute(position.coords.latitude, position.coords.longitude);
         },
-        () => {
-          // Kalau tolak, gak tampil route
-        }
+        (err) => {
+          console.warn("Lokasi tidak tersedia.", err);
+          showLoading(false);
+        },
+        { timeout: 10000 }
       );
     }
 
-    // Tombol buka Google Maps dengan navigasi jika ada lokasi, kalau tidak ada langsung point fixed
-    document
-      .getElementById("startNavigation")
-      .addEventListener("click", function () {
-          const url = `https://www.google.com/maps/search/?api=1&query=${fixedLat},${fixedLon}`;
-          window.open(url, "_blank");
-      });
+    // Buka Google Maps
+    document.getElementById("startNavigation").addEventListener("click", function () {
+      const url = `https://www.google.com/maps/search/?api=1&query=${fixedLat},${fixedLon}`;
+      window.open(url, "_blank");
+    });
   </script>
 </body>
 </html>

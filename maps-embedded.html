@@ -178,7 +178,16 @@
           const route = e.routes[0];
           const summary = route.summary;
           const distance = (summary.totalDistance / 1000).toFixed(2) + " km";
-          const duration = Math.ceil(summary.totalTime / 60) + " menit";
+
+          const totalMinutes = Math.ceil(summary.totalTime / 60);
+          let duration;
+          if (totalMinutes < 60) {
+            duration = totalMinutes + " mnt";
+          } else {
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+            duration = `${hours} j${minutes > 0 ? ' ' + minutes + ' mnt' : ''}`;
+          }
 
           const summaryBox = document.getElementById('routeSummary');
           if (summaryBox) {
