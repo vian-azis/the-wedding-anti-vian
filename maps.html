@@ -207,8 +207,8 @@
       outline: none;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     ">
-      <option value="resepsi" selected>Resepsi</option>
-      <option value="akad">Akad</option>
+      <option value="Resepsi" selected>Resepsi</option>
+      <option value="Akad">Akad</option>
     </select>
   </div>
 
@@ -241,7 +241,7 @@
 
     document.getElementById('eventSelect').addEventListener('change', function () {
       const selected = this.value;
-      if (selected === 'akad') {
+      if (selected === 'Akad') {
         targetDate = new Date('2025-06-22T06:00:00');
       } else {
         targetDate = new Date('2025-06-22T14:00:00');
@@ -253,36 +253,36 @@
       let diff = targetDate - now;
 
       if (diff <= 0) {
-        countdownElement.innerHTML = `<div class="countdown-box" style="min-width:auto;">🎉 Resepsi sudah dimulai!</div>`;
-        clearInterval(countdownInterval);
+        countdownElement.innerHTML = `<div class="countdown-box" style="min-width:auto;">🎉 ${document.getElementById('eventSelect').value} sudah dimulai!</div>`;
+        // clearInterval(countdownInterval);
         return;
+      } else {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff -= days * (1000 * 60 * 60 * 24);
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        diff -= hours * (1000 * 60 * 60);
+
+        const minutes = Math.floor(diff / (1000 * 60));
+        diff -= minutes * (1000 * 60);
+
+        const seconds = Math.floor(diff / 1000);
+
+        countdownElement.innerHTML = `
+          <div class="countdown-box">
+            ${days} <span class="countdown-label">Hari</span>
+          </div>
+          <div class="countdown-box">
+            ${hours} <span class="countdown-label">Jam</span>
+          </div>
+          <div class="countdown-box">
+            ${minutes} <span class="countdown-label">Menit</span>
+          </div>
+          <div class="countdown-box">
+            ${seconds} <span class="countdown-label">Detik</span>
+          </div>
+        `;
       }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      diff -= days * (1000 * 60 * 60 * 24);
-
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      diff -= hours * (1000 * 60 * 60);
-
-      const minutes = Math.floor(diff / (1000 * 60));
-      diff -= minutes * (1000 * 60);
-
-      const seconds = Math.floor(diff / 1000);
-
-      countdownElement.innerHTML = `
-        <div class="countdown-box">
-          ${days} <span class="countdown-label">Hari</span>
-        </div>
-        <div class="countdown-box">
-          ${hours} <span class="countdown-label">Jam</span>
-        </div>
-        <div class="countdown-box">
-          ${minutes} <span class="countdown-label">Menit</span>
-        </div>
-        <div class="countdown-box">
-          ${seconds} <span class="countdown-label">Detik</span>
-        </div>
-      `;
     }
 
     updateCountdown();
